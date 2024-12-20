@@ -5,12 +5,6 @@ html{
 }
 
 .background {
-    background: 
-    radial-gradient(
-      circle, 
-      rgba(0, 0, 0, 0.4) 10%, /* Zentrum leicht abgedunkelt */
-      rgba(0, 0, 0, 0.7) 90% /* Ränder stark schwarz */
-    ), url('../../assets/img/Diashow.jpeg');
     background-size: cover; 
     background-position: center; 
     height: 100vh; 
@@ -72,4 +66,9 @@ html{
     }
       
     }
+  }
+
+  app-log-in{
+    height: 200px;
+    width: 200px ;
   }
