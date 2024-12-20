@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: 'dm-sans'; /* Name der Schriftart */
+    src: url('./assets/fonts/DMSans-VariableFont_opsz\,wght.ttf') format('truetype'); /* Pfad zur TTF-Datei */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
