@@ -11,4 +11,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: normal;
     font-style: normal;
   }
-  
+  app-header{
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 108px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 96px;
+}
+
+app-footer{
+    position: absolute;
+    z-index: 99;
+    bottom: 40px;
+    right: 50%;
+    width: 150px;
+    display: flex;
+    padding: 10px;
+    gap: 48px;
+    color: white;
+    letter-spacing: 1px;
+}
