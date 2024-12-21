@@ -1,7 +1,8 @@
 <app-header></app-header>
-<section class="background" [ngStyle]="{'background': 'radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url(' + backgroundImage + ')'}">
+<section
+  class="background"
+  style="background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url('../../assets/img/Diashow.jpeg');">
 
-    @if (this.router.url === "/") {
         <div class="start-content">
         <h1>Movies,TV shows, and more </h1> 
         <p>Enter your email to create or restart your subscription.</p>
@@ -10,10 +11,6 @@
             <button mat-flat-button color="primary">Sign Up ></button>
         </div>
     </div>
-    }
-    @if(this.router.url === "login"){
-        <app-log-in></app-log-in>
-    }
     
     <app-footer></app-footer>
 </section>

@@ -1,0 +1,105 @@
+@import '../../variables';
+
+body{
+    font-family: dm-sans;
+}
+
+.login-content{
+    height: 450px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 43px 56px;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 40px;
+
+    >h1{
+        color: $primary-color;
+        font-size: 48px;
+        margin: 0;
+        letter-spacing: 2px;
+        margin-bottom: 32px;
+    }
+    
+    
+}
+
+mat-form-field{
+    width: 100%;
+    border-radius: 12px;
+    color: $primary-color;
+    margin-bottom: 32px;
+
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #fff !important; 
+    border: 1.5px solid $primary-color ;
+    border-radius: 12px; 
+  }
+mat-label{
+ color: $primary-color;
+ font-family: dm-sans;
+ font-size: 18px;
+ font-weight: 600px;
+}
+
+.password-input{
+    display: flex;
+    width: 100%;
+    font-family: dm-sans;
+    gap: 4px;
+
+    >input{
+        height: 16px;
+        width: 16px;
+        border: 1px solid $primary-color;
+    }
+}
+
+.login-lower-content{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 32px;
+    font-family: dm-sans;
+    flex-direction: column;
+    gap: 16px;
+
+    button{
+        background-color: #2E3EDF !important;
+        height: 48px;
+        width: 100px;
+        font-size: 18px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-family: dm-sans;
+        
+    }
+    >span{
+        color: $primary-color;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    >div{
+        display: flex;
+        width: 80%; 
+        gap: 24px;
+        justify-content: center;
+
+        >span{
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        >a{
+            color: $primary-color;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
+}
