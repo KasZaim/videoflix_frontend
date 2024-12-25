@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { FormControl, Validators,FormsModule, ReactiveFormsModule, } from '@angular/forms';
@@ -20,7 +21,8 @@ import { Router } from '@angular/router';
     FormsModule, 
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './log-in.component.html',
@@ -28,7 +30,8 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent {
-  readonly email = new FormControl('', [Validators.required, Validators.email]);//email input
+  readonly email = new FormControl('', [Validators.required, Validators.email]);
+  readonly password = new FormControl('', [Validators.required, Validators.minLength(6)]);//email input
   errorMessage = signal('');
 
   hide = signal(true); //password input

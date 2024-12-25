@@ -2,11 +2,11 @@
 <section
   class="background"
   style="background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url('../../assets/img/popcorn_2.jpeg');">
-<form>
+<form onsubmit="">
     <div class="login-content">
       <h1>Log in</h1>
 
-        <mat-form-field>
+        <mat-form-field >
             <mat-label>Enter your email</mat-label>
             <input
               matInput
@@ -21,7 +21,11 @@
           </mat-form-field>
           <mat-form-field style="margin-bottom: 0;">
             <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide() ? 'password' : 'text'" />
+            <input matInput [formControl]="password" [type]="hide() ? 'password' : 'text'" />
+            <mat-error *ngIf="password.invalid && password.touched">
+              {{ password.hasError('required') ? 'Password is required' : '' }}
+              {{ password.hasError('minlength') ? 'Password must be at least 6 characters' : '' }}
+            </mat-error>
             <button
               mat-icon-button
               matSuffix
@@ -39,7 +43,7 @@
           </div>
           
           <div class="login-lower-content">
-            <button (click)="this.router.navigate(['/login'])" mat-flat-button color="primary">
+            <button (click)="this.router.navigate(['/'])" [disabled]="email.invalid || password.invalid" mat-flat-button color="primary">
               Log in
             </button>
             <span> Forgot password?</span>
@@ -50,8 +54,6 @@
           </div>
     </div>
     
-
 </form>
-
-</section>
 <app-footer></app-footer>
+</section>

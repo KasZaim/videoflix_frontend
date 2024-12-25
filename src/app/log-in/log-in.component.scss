@@ -4,9 +4,13 @@ body{
     font-family: dm-sans;
 }
 
+.background{
+    flex-direction: column;
+}
+
 .login-content{
-    height: 450px;
-    width: 500px;
+    height: 385px;
+    width: 370px;
     display: flex;
     flex-direction: column;
     padding: 43px 56px;
@@ -16,10 +20,10 @@ body{
 
     >h1{
         color: $primary-color;
-        font-size: 48px;
+        font-size: 40px;
         margin: 0;
         letter-spacing: 2px;
-        margin-bottom: 32px;
+        margin-bottom: 30px;
     }
     
     
@@ -29,20 +33,27 @@ mat-form-field{
     width: 100%;
     border-radius: 12px;
     color: $primary-color;
-    margin-bottom: 32px;
+    font-size: 13px;
+    height: 70px;
+    margin-bottom: 8px;
 
+}
+
+mat-input{
+    font-size: 14px;
+    height: 15px;
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: #fff !important; 
     border: 1.5px solid $primary-color ;
-    border-radius: 12px; 
-  }
+    border-radius: 13px;
+}
 mat-label{
  color: $primary-color;
  font-family: dm-sans;
- font-size: 18px;
- font-weight: 600px;
+ font-size: 14px;
+ font-weight: 700px;
 }
 
 .password-input{
@@ -50,10 +61,10 @@ mat-label{
     width: 100%;
     font-family: dm-sans;
     gap: 4px;
-
+    margin-bottom: 35px;
     >input{
-        height: 16px;
-        width: 16px;
+        height: 13px;
+        width: 13px;
         border: 1px solid $primary-color;
     }
 }
@@ -63,26 +74,26 @@ mat-label{
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding-top: 32px;
     font-family: dm-sans;
     flex-direction: column;
-    gap: 16px;
+    gap: 19px;
 
     button{
         background-color: #2E3EDF !important;
         height: 48px;
         width: 100px;
-        font-size: 18px;
+        font-size: 16px;
         border-radius: 40px;
         font-weight: 700;
         font-family: dm-sans;
+        white-space: nowrap;
         
     }
     >span{
         color: $primary-color;
         font-weight: 600;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     >div{
@@ -92,8 +103,8 @@ mat-label{
         justify-content: center;
 
         >span{
-            font-size: 18px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 600;
         }
 
         >a{

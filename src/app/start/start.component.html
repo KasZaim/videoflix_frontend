@@ -7,8 +7,8 @@
         <h1>Movies,TV shows, and more </h1> 
         <p>Enter your email to create or restart your subscription.</p>
         <div class="signup-field">
-            <input type="email" id="email" placeholder="Email Adress">
-            <button mat-flat-button color="primary">Sign Up ></button>
+            <input type="email" #emailInput  id="emailInput" placeholder="Email Adress">
+            <button mat-flat-button (click)="sendValueAndNavigate(emailInput.value)" color="primary">Sign Up ></button>
         </div>
     </div>
     
