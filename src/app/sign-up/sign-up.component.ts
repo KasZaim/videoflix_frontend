@@ -48,10 +48,11 @@ export class SignUpComponent {
 
       this.signUpForm = new FormGroup(
         {
+          email: this.email,
           password: new FormControl('', [Validators.required, Validators.minLength(6)]),
           confirmPassword: new FormControl('', [Validators.required]),
         },
-        { validators: this.passwordMatchValidator.bind(this) } // Validator richtig binden
+        { validators: this.passwordMatchValidator } // Validator richtig binden
       );
   }
   ngOnInit() {
@@ -63,8 +64,15 @@ export class SignUpComponent {
   passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
+    if (password !== confirmPassword) {
+      console.log('Passwörter stimmen nicht überein');
+      return { passwordMismatch: true };
+    } else {
+      console.log('Passwörter stimmen überein');
+      return null;
+    }
   }
+
   get password() {
     return this.signUpForm.get('password');
   }
@@ -79,12 +87,45 @@ export class SignUpComponent {
   }
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log('Form submitted successfully:', this.signUpForm.value);
-      this.router.navigate(['/welcome']);
+      // Formulardaten abrufen und Feldnamen anpassen
+      const formData = {
+        email: this.signUpForm.value.email, // Kein Mapping erforderlich
+        password: this.signUpForm.value.password, // Kein Mapping erforderlich
+        repeated_password: this.signUpForm.value.confirmPassword, // Mapping von confirmPassword
+      };
+  
+      this.registerUser(formData); // Daten an die registerUser-Funktion übergeben
     } else {
-      console.log('Form is invalid');
+      console.log("Form is invalid");
+      alert("Bitte füllen Sie alle Felder korrekt aus.");
     }
   }
+  
+  async registerUser(formData: { email: string; password: string; repeated_password: string }) {
+    try {
+      const response = await fetch("http://localhost:8000/api/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData), // Umgewandelte Daten senden
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Registrierung erfolgreich:", data.message);
+        alert("Bitte überprüfe deine E-Mails zur Bestätigung!");
+      } else {
+        const errorData = await response.json();
+        console.error("Fehler:", errorData);
+        alert("Registrierung fehlgeschlagen: " + JSON.stringify(errorData));
+      }
+    } catch (error) {
+      console.error("Netzwerkfehler:", error);
+      alert("Ein Netzwerkfehler ist aufgetreten.");
+    }
+  }
+  
 
   updateErrorMessage() {
     if (this.email.hasError('required')) {

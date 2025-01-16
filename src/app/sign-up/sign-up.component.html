@@ -58,9 +58,9 @@
         {{ confirmPassword?.hasError('required') ? 'Please confirm your password' : '' }}
       </mat-error>
 
-      <mat-error *ngIf="passwordMismatchError">
-        Passwords do not match.
-      </mat-error>
+      <mat-error *ngIf="signUpForm.hasError('passwordMismatch') && confirmPassword?.touched">
+          Passwords do not match.
+        </mat-error>
       
             <button
               mat-icon-button
