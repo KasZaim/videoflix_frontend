@@ -65,10 +65,8 @@ export class SignUpComponent {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     if (password !== confirmPassword) {
-      console.log('Passwörter stimmen nicht überein');
       return { passwordMismatch: true };
     } else {
-      console.log('Passwörter stimmen überein');
       return null;
     }
   }

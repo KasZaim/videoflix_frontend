@@ -1,0 +1,10 @@
+<div style="text-align: center; padding: 20px;">
+    <h2 *ngIf="loading">Überprüfung läuft...</h2>
+    <div *ngIf="!loading">
+      <h2 *ngIf="success" style="color: green;">E-Mail erfolgreich bestätigt!</h2>
+      <h2 *ngIf="!success" style="color: red;">Der Link ist ungültig oder abgelaufen.</h2>
+      <button mat-button color="primary" *ngIf="success" (click)="redirectToLogin()">
+        Zum Login
+      </button>
+    </div>
+  </div>
