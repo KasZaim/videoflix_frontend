@@ -10,6 +10,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { merge } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-log-in',
@@ -22,7 +25,9 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './log-in.component.html',
@@ -32,14 +37,18 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   readonly password = new FormControl('', [Validators.required, Validators.minLength(6)]);//email input
+  rememberMe = false;
   errorMessage = signal('');
+  private apiBaseUrl = environment.API_BASE_URL;
+
+
 
   hide = signal(true); //password input
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-  constructor(public router : Router) {
+  constructor(public router : Router, private http: HttpClient) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
@@ -54,4 +63,49 @@ export class LoginComponent {
       this.errorMessage.set('');
     }
   }
+
+  onSubmit() {
+    // Überprüfen, ob die Felder gültig sind
+    if (this.email.invalid || this.password.invalid) {
+      this.errorMessage.set('Bitte alle Felder korrekt ausfüllen.');
+      return;
+    }
+  
+    // Anmeldedaten abrufen
+    const loginData = {
+      email: this.email.value || '', // Sicherstellen, dass kein `null` übergeben wird
+      password: this.password.value || ''
+    };
+  
+    // Anfrage an das Backend senden
+    this.http
+      .post<any>(this.apiBaseUrl +'/api/login/', loginData)
+      .subscribe({
+        next: (data) => {
+          console.log('Login erfolgreich:', data);
+  
+          if (this.rememberMe) {
+            localStorage.setItem('token', data.token);
+          } else {
+            sessionStorage.setItem('token', data.token);
+          }
+  
+          // Weiterleitung nach erfolgreichem Login
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err) => {
+          console.error('Fehler beim Login:', err);
+  
+          // Fehlernachricht setzen
+          this.errorMessage.set(
+            err.error?.error || 'Ein unbekannter Fehler ist aufgetreten.'
+          );
+        },
+        complete: () => {
+          console.log('Login-Vorgang abgeschlossen.');
+        }
+      });
+  }
+   
+  
 }
