@@ -5,7 +5,9 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" >
     <div class="login-content">
       <h1>Sign up</h1>
-
+      <button [routerLink]="'/login'" class="back_arrow" mat-icon-button >
+        <mat-icon >arrow_back</mat-icon>
+      </button>
         <mat-form-field >
             <mat-label>Email Address</mat-label>
             <input

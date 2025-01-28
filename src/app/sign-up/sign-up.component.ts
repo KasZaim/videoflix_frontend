@@ -9,7 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { merge } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -23,7 +23,8 @@ import { SharedService } from '../shared.service';
       ReactiveFormsModule,
       MatButtonModule,
       MatIconModule,
-      CommonModule
+      CommonModule,
+      RouterModule
     ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'

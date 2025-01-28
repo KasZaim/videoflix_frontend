@@ -2,7 +2,7 @@
 <section
   class="background"
   style="background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url('../../assets/img/popcorn_2.jpeg');">
-<form onsubmit="">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="login-content">
       <h1>Log in</h1>
 
@@ -38,15 +38,15 @@
           </mat-form-field>
 
           <div class="password-input">
-            <input id="rememberMe" formControlName="rememberMe" [(ngModel)]="rememberMe"  type="checkbox" />
+            <input id="rememberMe" formControlName="rememberMe"   type="checkbox" />
             <label for="rememberMe">Remember Me</label>
           </div>
           
           <div class="login-lower-content">
-            <button (click)="this.router.navigate(['/'])" [disabled]="email.invalid || password.invalid" mat-flat-button color="primary">
+            <button [disabled]="email.invalid || password.invalid" mat-flat-button color="primary">
               Log in
             </button>
-            <span> Forgot password?</span>
+            <a (click)="this.router.navigate(['/forgot-password']) ">Forgot Password</a>
             <div>
               <span> New to videoflix?</span>
               <a (click)="this.router.navigate(['/signup']) ">Sign Up now</a>

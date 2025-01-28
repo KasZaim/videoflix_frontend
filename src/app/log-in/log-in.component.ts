@@ -3,7 +3,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
-import { FormControl, Validators,FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import { FormBuilder, Validators,FormsModule, ReactiveFormsModule, FormGroup, FormControl} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +27,7 @@ import { environment } from '../../environments/environment';
     MatIconModule,
     CommonModule,
     HttpClientModule,
-    
+
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './log-in.component.html',
@@ -35,12 +35,9 @@ import { environment } from '../../environments/environment';
 })
 
 export class LoginComponent {
-  readonly email = new FormControl('', [Validators.required, Validators.email]);
-  readonly password = new FormControl('', [Validators.required, Validators.minLength(6)]);//email input
-  rememberMe = false;
   errorMessage = signal('');
   private apiBaseUrl = environment.API_BASE_URL;
-
+  loginForm: FormGroup;
 
 
   hide = signal(true); //password input
@@ -48,16 +45,29 @@ export class LoginComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-  constructor(public router : Router, private http: HttpClient) {
-    merge(this.email.statusChanges, this.email.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+  constructor(public router : Router, private http: HttpClient,private fb: FormBuilder,) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberMe: [false], // Standardmäßig nicht aktiviert
+    });
+  }
+  get email(): FormControl {
+    return this.loginForm.get('email') as FormControl;
+  }
+  
+  get password(): FormControl {
+    return this.loginForm.get('password') as FormControl;
+  }
+  
+  get rememberMe() {
+    return this.loginForm.get('rememberMe')?.value;
   }
 
   updateErrorMessage() {
-    if (this.email.hasError('required')) {
+    if (this.email?.hasError('required')) {
       this.errorMessage.set('You must enter a value');
-    } else if (this.email.hasError('email')) {
+    } else if (this.email?.hasError('email')) {
       this.errorMessage.set('Not a valid email');
     } else {
       this.errorMessage.set('');
@@ -65,16 +75,16 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    // Überprüfen, ob die Felder gültig sind
-    if (this.email.invalid || this.password.invalid) {
+    this.loginForm.disable();
+    if (this.loginForm.invalid) {
       this.errorMessage.set('Bitte alle Felder korrekt ausfüllen.');
       return;
     }
   
     // Anmeldedaten abrufen
     const loginData = {
-      email: this.email.value || '', // Sicherstellen, dass kein `null` übergeben wird
-      password: this.password.value || ''
+      email: this.email?.value || '', // Sicherstellen, dass kein `null` übergeben wird
+      password: this.password?.value || ''
     };
   
     // Anfrage an das Backend senden
@@ -84,11 +94,7 @@ export class LoginComponent {
         next: (data) => {
           console.log('Login erfolgreich:', data);
   
-          if (this.rememberMe) {
-            localStorage.setItem('token', data.token);
-          } else {
-            sessionStorage.setItem('token', data.token);
-          }
+          this.storeToken(data.token, this.rememberMe);
   
           // Weiterleitung nach erfolgreichem Login
           this.router.navigate(['/dashboard']);
@@ -107,5 +113,12 @@ export class LoginComponent {
       });
   }
    
+  storeToken(token: string, rememberMe: boolean): void {
+    if (rememberMe) {
+      localStorage.setItem('token', token);
+    } else {
+      sessionStorage.setItem('token', token);
+    }
+  }
   
 }
