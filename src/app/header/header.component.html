@@ -7,6 +7,11 @@
     Log in
   </button>
 }
+@if (this.router.url === "/dashboard") {
+  <button mat-button (click)="logout()" style="width:auto;">
+    <mat-icon>logout</mat-icon> Log Out
+  </button>
+}
 
   
     

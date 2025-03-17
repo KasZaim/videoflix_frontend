@@ -81,17 +81,19 @@ export class ResetPasswordComponent implements OnInit {
         new_password: newPassword,
       })
       .subscribe({
-        next: () => {
-          this.toastr.success(
-            'Passwort erfolgreich zurückgesetzt. Du wirst zur Login-Seite weitergeleitet.',
-            'Erfolg'
-          );
+        next: (response: any) => {
+          const successMessage =
+            response.message ||
+            'Passwort erfolgreich zurückgesetzt. Du wirst zur Login-Seite weitergeleitet.';
+        this.toastr.success(successMessage, 'Erfolg');
           setTimeout(() => this.router.navigate(['/login']), 3000); // Weiterleitung nach 3 Sekunden
         },
         error: (err) => {
           const errorMessage =
-            err.error?.error || 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
-          this.toastr.error(errorMessage, 'Fehler');
+          err.error?.message ||
+          err.error?.error ||
+          'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
+        this.toastr.error(errorMessage, 'Fehler');
         },
       });
   }

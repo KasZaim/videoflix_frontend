@@ -7,6 +7,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
 { path: "signup", component: SignUpComponent},
 { path: 'verify-email', component: EmailVerificationComponent },
 { path: 'forgot-password', component: ForgotPasswordComponent }, 
-{ path: 'reset-password', component:ResetPasswordComponent }
+{ path: 'reset-password', component:ResetPasswordComponent },
+{path: 'dashboard', component: DashboardComponent}
 ];

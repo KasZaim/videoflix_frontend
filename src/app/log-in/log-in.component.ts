@@ -8,11 +8,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { merge } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-log-in',
@@ -45,7 +45,7 @@ export class LoginComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-  constructor(public router : Router, private http: HttpClient,private fb: FormBuilder,) {
+  constructor(public router : Router, private http: HttpClient,private fb: FormBuilder,private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -91,10 +91,13 @@ export class LoginComponent {
     this.http
       .post<any>(this.apiBaseUrl +'/api/login/', loginData)
       .subscribe({
-        next: (data) => {
-          console.log('Login erfolgreich:', data);
+        next: (response) => {
+          const successMessage =
+            response.message ||
+            'Successfully logged in';
+          this.toastr.success(successMessage, 'Success');
   
-          this.storeToken(data.token, this.rememberMe);
+          this.storeToken(response.token, this.rememberMe);
   
           // Weiterleitung nach erfolgreichem Login
           this.router.navigate(['/dashboard']);
@@ -103,9 +106,13 @@ export class LoginComponent {
           console.error('Fehler beim Login:', err);
   
           // Fehlernachricht setzen
-          this.errorMessage.set(
-            err.error?.error || 'Ein unbekannter Fehler ist aufgetreten.'
-          );
+          const errorMessage =
+          err.error?.message ||
+          err.error?.error ||
+          'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
+
+        this.toastr.error(errorMessage, 'Fehler');
+        this.loginForm.enable();
         },
         complete: () => {
           console.log('Login-Vorgang abgeschlossen.');
