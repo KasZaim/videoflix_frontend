@@ -1,9 +1,14 @@
 <app-header></app-header>
-<div class="video-background">
-    <video autoplay muted loop id="bgVideo">
-      <source src="assets/background-video.mp4" type="video/mp4">
-      Dein Browser unterstützt das Video-Tag nicht.
-    </video>
+<div class="video-background" *ngFor="let video of videos">
+  <video 
+  [src]="video.video_480p" 
+  muted 
+  autoplay 
+  loop 
+  playsinline
+  preload="metadata"
+  class="video-preview">
+</video>
   </div>
   
   <!-- Dashboard-Inhalt -->
