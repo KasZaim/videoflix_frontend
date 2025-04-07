@@ -1,0 +1,88 @@
+<app-header></app-header>
+<div class="video-container">
+  <div class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </div>
+  
+  <div class="video-wrapper">
+    <video 
+      #videoPlayer 
+      class="video-player"
+      (timeupdate)="onTimeUpdate()" 
+      (click)="togglePlay()"
+      preload="metadata"
+      (error)="onVideoError($event)">
+      <source *ngIf="videoUrl" [src]="videoUrl" type="video/mp4">
+      <source *ngIf="videoUrl" [src]="videoUrl" type="video/webm">
+      <p class="video-error">Ihr Browser unterstützt die Videowiedergabe nicht oder die Video-URL ist ungültig.</p>
+    </video>
+
+    <div class="video-header-shadow">
+      <h2 *ngIf="videoTitle" class="video-title">{{ videoTitle }}</h2>
+    </div>
+
+    <div *ngIf="!videoUrl" class="video-error-overlay">
+      <p>Kein Video ausgewählt. Bitte wählen Sie ein Video aus der Videoslideshow.</p>
+    </div>
+
+    <div class="video-controls">
+      <div class="progress-container">
+        <input 
+          type="range" 
+          class="progress-bar" 
+          min="0" 
+          [max]="duration || 0" 
+          [value]="currentTime" 
+          (input)="seekVideo($event)">
+      </div>
+      
+      <div class="controls-row">
+        <div class="left-controls">
+          <button class="control-button" (click)="togglePlay()">
+            <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+            <mat-icon *ngIf="isPlaying">pause</mat-icon>
+          </button>
+          
+          <button class="control-button" (click)="skipBackward()">
+            <mat-icon>replay_10</mat-icon>
+          </button>
+          
+          <button class="control-button" (click)="skipForward()">
+            <mat-icon>forward_10</mat-icon>
+          </button>
+          
+          <div class="volume-control-wrapper">
+            <button class="control-button" (click)="toggleMute()">
+              <mat-icon *ngIf="!isMuted">volume_up</mat-icon>
+              <mat-icon *ngIf="isMuted">volume_off</mat-icon>
+            </button>
+            <div class="volume-slider-container">
+              <input 
+                type="range" 
+                class="volume-slider" 
+                min="0" 
+                max="1" 
+                step="0.1" 
+                [value]="volume"
+                (input)="setVolume($event)">
+            </div>
+          </div>
+          
+          <div class="time-display">
+            {{ formatTime(currentTime) }} / {{ formatTime(duration || 0) }}
+          </div>
+        </div>
+        
+        <div class="right-controls">
+          <button class="control-button" (click)="toggleFullScreen()">
+            <mat-icon>fullscreen</mat-icon>
+          </button>
+          
+          <button class="control-button menu-button" (click)="toggleMenu()">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

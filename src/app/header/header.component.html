@@ -1,6 +1,8 @@
-
-<img (click)="this.router.navigate(['/'])" src="../../assets/img/Logo.png" alt="">
-
+@if (this.router.url === "/dashboard" || "/video-player" ) {
+  <img (click)="this.router.navigate(['/'])" src="../../assets/img/vf_only_icon.png" alt="">
+} @else {
+  <img (click)="this.router.navigate(['/'])" src="../../assets/img/Logo.png" alt="">
+}
 
 @if (this.router.url === "/") {
   <button (click)="this.router.navigate(['/login'])" mat-flat-button color="primary">

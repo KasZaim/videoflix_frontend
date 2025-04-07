@@ -1,0 +1,49 @@
+<div class="slideshow-container">
+  <!-- New on Videoflix Section -->
+  <section class="category-section">
+    <h2 class="category-title">New on Videoflix</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of newVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documentary Section -->
+  <section class="category-section">
+    <h2 class="category-title">Documentary</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of documentaryVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Drama Section -->
+  <section class="category-section">
+    <h2 class="category-title">Drama</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of dramaVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+            <p class="thumbnail-path">{{ video.thumbnail }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
