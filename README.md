@@ -84,19 +84,6 @@ API_BASE_URL=deine_api_url
 
 ## Entwicklung
 
-### Code-Stil
-
-- ESLint für TypeScript
-- Prettier für Code-Formatierung
-- Angular Style Guide Konventionen
-
-### Best Practices
-
-- Komponenten-basierte Architektur
-- Lazy Loading für optimale Performance
-- Reactive Forms für Formularvalidierung
-- Service-basierte Datenverwaltung
-
 ## Deployment
 
 1. Build der Anwendung:
@@ -112,10 +99,4 @@ Dieses Projekt ist unter der MIT-Lizenz lizenziert.
 
 ## Autor
 
-[Dein Name]
-
-## Danksagungen
-
-- Angular Team für das hervorragende Framework
-- Material Design für die UI-Komponenten
-- Alle Mitwirkenden und Unterstützer des Projekts
+Kaser Mahmood
