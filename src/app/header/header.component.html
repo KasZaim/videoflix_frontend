@@ -1,6 +1,8 @@
-@if (this.router.url === "/dashboard" || "/video-player" ) {
+@if (this.router.url === "/dashboard" || "/video-player") {
   <img (click)="this.router.navigate(['/dashboard'])" src="../../assets/img/vf_only_icon.png" alt="">
-} @else {
+} 
+
+@if (this.router.url === "/") {
   <img (click)="this.router.navigate(['/'])" src="../../assets/img/Logo.png" alt="">
 }
 
