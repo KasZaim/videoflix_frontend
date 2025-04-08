@@ -1,27 +1,121 @@
-# Videoflix
+# Videoflix - Video Streaming Platform
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11.
+Videoflix ist eine moderne Video-Streaming-Plattform, die mit Angular entwickelt wurde. Die Anwendung bietet eine benutzerfreundliche Oberfläche zum Ansehen von Videos mit verschiedenen Qualitätsstufen und einer responsiven Benutzeroberfläche.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- 🎥 Video-Streaming mit verschiedenen Qualitätsstufen (1080p, 720p, 480p)
+- 🔐 Benutzerauthentifizierung mit Login/Logout-Funktionalität
+- 📱 Responsive Design für optimale Nutzung auf allen Geräten
+- 🎨 Moderne UI mit Material Design
+- 🔒 Geschützte Routen mit Auth Guard
+- 📝 Benutzerfreundliche Fehlermeldungen und Benachrichtigungen
 
-## Code scaffolding
+## Technologien
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 17
+- TypeScript
+- Angular Material
+- RxJS
+- ngx-toastr für Benachrichtigungen
+- SCSS für Styling
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Stelle sicher, dass Node.js und npm installiert sind
+2. Klone das Repository:
+   ```bash
+   git clone https://github.com/KasZaim/videoflix_frontend.git
+   ```
+3. Navigiere in das Projektverzeichnis:
+   ```bash
+   cd videoflix
+   ```
+4. Installiere die Abhängigkeiten:
+   ```bash
+   npm install
+   ```
+5. Starte die Entwicklungsumgebung:
+   ```bash
+   ng serve
+   ```
+6. Öffne deinen Browser und navigiere zu `http://localhost:4200`
 
-## Running unit tests
+## Projektstruktur
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── dashboard/
+│   │   ├── header/
+│   │   ├── footer/
+│   │   ├── video-player/
+│   │   └── video-slideshow/
+│   ├── services/
+│   │   └── video.service.ts
+│   ├── interfaces/
+│   │   └── video.interface.ts
+│   ├── guards/
+│   │   └── auth.guard.ts
+│   └── environments/
+├── assets/
+│   └── img/
+└── styles/
+```
 
-## Running end-to-end tests
+## API-Integration
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Die Anwendung kommuniziert mit einem Backend-Server über HTTP-Anfragen. Die API-Basis-URL wird in der Umgebungskonfiguration definiert.
 
-## Further help
+### Endpunkte
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `/api/login/` - Benutzerauthentifizierung
+- `/api/videos/` - Video-Liste abrufen
+- Weitere API-Endpunkte für Video-Streaming
+
+## Umgebungsvariablen
+
+Erstelle eine `.env`-Datei im Root-Verzeichnis mit folgenden Variablen:
+
+```env
+API_BASE_URL=deine_api_url
+```
+
+## Entwicklung
+
+### Code-Stil
+
+- ESLint für TypeScript
+- Prettier für Code-Formatierung
+- Angular Style Guide Konventionen
+
+### Best Practices
+
+- Komponenten-basierte Architektur
+- Lazy Loading für optimale Performance
+- Reactive Forms für Formularvalidierung
+- Service-basierte Datenverwaltung
+
+## Deployment
+
+1. Build der Anwendung:
+   ```bash
+   ng build --prod
+   ```
+2. Die generierten Dateien befinden sich im `dist/`-Verzeichnis
+3. Deploye den Inhalt des `dist/`-Verzeichnisses auf deinem Webserver
+
+## Lizenz
+
+Dieses Projekt ist unter der MIT-Lizenz lizenziert.
+
+## Autor
+
+[Dein Name]
+
+## Danksagungen
+
+- Angular Team für das hervorragende Framework
+- Material Design für die UI-Komponenten
+- Alle Mitwirkenden und Unterstützer des Projekts

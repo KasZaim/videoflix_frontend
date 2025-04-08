@@ -1,70 +1,62 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-email-verification',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [MatButtonModule, CommonModule],
   templateUrl: './email-verification.component.html',
   styleUrl: './email-verification.component.scss'
 })
-export class EmailVerificationComponent {
-  loading = true; // Zeigt den Ladezustand an
+export class EmailVerificationComponent implements OnInit {
+  loading = true;
   success = false;
+  private apiBaseUrl = environment.API_BASE_URL;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
-    private router: Router
-  ) {}
-  
+    private toastr: ToastrService
+  ) { }
+
   ngOnInit(): void {
-    const uid = this.route.snapshot.queryParamMap.get('uid');
-    const token = this.route.snapshot.queryParamMap.get('token');
-  
-    if (uid && token) {
-      // Anfrage an das Backend senden, um die Verifizierung durchzuführen
-      this.http
-        .get<any>(`http://localhost:8000/api/confirm-email/${uid}/${token}/`)
-        .subscribe({
-          next: (response: any) => {
-            console.log('Bestätigung erfolgreich:', response);
-  
-            if (response.redirect_url) {
-              // Weiterleitung zur Login-Seite basierend auf der Backend-Antwort
-              this.router.navigateByUrl(response.redirect_url);
-            } else {
-              console.error('Keine Weiterleitungs-URL in der Antwort enthalten.');
-              this.success = false; // Fehler
-              this.loading = false; // Ladezustand beenden
-            }
-  
-            this.success = true; // Erfolg
-            this.loading = false; // Ladezustand beenden
-          },
-          error: (error: any) => {
-            console.error('Fehler bei der Bestätigung:', error);
-            this.success = false; // Fehler
-            this.loading = false; // Ladezustand beenden
-          },
-          complete: () => {
-            console.log('Verifizierungsprozess abgeschlossen.');
-          },
-        });
-    } else {
-      this.loading = false; // Ladezustand beenden, wenn keine Parameter vorhanden sind
-      this.success = false; // Setze Erfolg auf false
-    }
+    // Token aus der URL extrahieren
+    this.route.queryParams.subscribe(params => {
+      const token = params['token'];
+      if (token) {
+        this.verifyEmail(token);
+      } else {
+        this.loading = false;
+        this.success = false;
+        this.toastr.error('Kein Verifizierungstoken gefunden', 'Fehler');
+      }
+    });
   }
-  
-  
-  // Benutzer zum Login weiterleiten
+
+  verifyEmail(token: string): void {
+    this.http.post(`${this.apiBaseUrl}/api/verify-email/`, { token })
+      .subscribe({
+        next: (response) => {
+          this.loading = false;
+          this.success = true;
+          this.toastr.success('Ihre E-Mail wurde erfolgreich bestätigt', 'Erfolg');
+        },
+        error: (error) => {
+          this.loading = false;
+          this.success = false;
+          this.toastr.error('Der Verifizierungslink ist ungültig oder abgelaufen', 'Fehler');
+          console.error('Fehler bei der E-Mail-Verifizierung:', error);
+        }
+      });
+  }
+
   redirectToLogin(): void {
     this.router.navigate(['/login']);
   }
-  
 }

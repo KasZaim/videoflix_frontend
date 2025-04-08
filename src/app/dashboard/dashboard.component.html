@@ -11,7 +11,7 @@
     <h1>{{currentVideo?.title || 'Willkommen im Netflix Dashboard'}}</h1>
     <p class="description">{{currentVideo?.description || 'Wählen Sie ein Video aus der Liste aus.'}}</p>
     
-    <button mat-raised-button color="primary" class="play-button">
+    <button mat-raised-button (click)="playVideo()" color="primary" class="play-button">
       <mat-icon>play_arrow</mat-icon>
       <span>Play</span>
     </button>

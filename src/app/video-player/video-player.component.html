@@ -74,6 +74,22 @@
         </div>
         
         <div class="right-controls">
+          <div class="quality-control-wrapper">
+            <button class="control-button" (click)="toggleQualityMenu()">
+              <mat-icon>settings</mat-icon>
+            </button>
+            <div class="quality-menu" *ngIf="showQualityMenu">
+              <div class="quality-menu-header">Qualität</div>
+              <div 
+                *ngFor="let quality of videoQualities" 
+                class="quality-option" 
+                [class.active]="currentQuality?.resolution === quality.resolution"
+                (click)="changeQuality(quality)">
+                {{ quality.label }}
+              </div>
+            </div>
+          </div>
+          
           <button class="control-button" (click)="toggleFullScreen()">
             <mat-icon>fullscreen</mat-icon>
           </button>

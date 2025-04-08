@@ -4,11 +4,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { Location } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { ToastrService } from 'ngx-toastr';
+
+interface VideoQuality {
+  label: string;
+  url: string;
+  resolution: string;
+}
 
 @Component({
   selector: 'app-video-player',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, MatIconModule],
+  imports: [CommonModule, HeaderComponent, MatIconModule, MatMenuModule, MatButtonModule],
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
@@ -23,16 +32,45 @@ export class VideoPlayerComponent implements OnInit {
   duration: number = 0;
   volume: number = 1;
   
+  // Videoqualitäten
+  videoQualities: VideoQuality[] = [];
+  currentQuality: VideoQuality | null = null;
+  showQualityMenu: boolean = false;
+  
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private location: Location
+    private location: Location,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.videoUrl = params['url'] || '';
       this.videoTitle = params['title'] || '';
+      
+      // Videoqualitäten aus den Parametern extrahieren
+      if (params['qualities']) {
+        try {
+          const qualities = JSON.parse(params['qualities']);
+          this.videoQualities = [
+            { label: 'Auto', url: this.videoUrl, resolution: 'Auto' },
+            { label: '1080p', url: qualities.video_1080p || '', resolution: '1080p' },
+            { label: '720p', url: qualities.video_720p || '', resolution: '720p' },
+            { label: '480p', url: qualities.video_480p || '', resolution: '480p' }
+          ].filter(quality => quality.url); // Nur Qualitäten mit URL behalten
+          
+          // Standardqualität setzen
+          this.currentQuality = this.videoQualities[0];
+        } catch (e) {
+          console.error('Fehler beim Parsen der Videoqualitäten:', e);
+        }
+      } else {
+        // Fallback, wenn keine Qualitäten übergeben wurden
+        this.videoQualities = [{ label: 'Standard', url: this.videoUrl, resolution: 'Standard' }];
+        this.currentQuality = this.videoQualities[0];
+      }
+      
       console.log('Video URL:', this.videoUrl);
       
       if (!this.videoUrl) {
@@ -56,7 +94,7 @@ export class VideoPlayerComponent implements OnInit {
     if (video.paused) {
       video.play().catch(err => {
         console.error('Fehler beim Abspielen des Videos:', err);
-        alert('Fehler beim Abspielen des Videos. Bitte überprüfen Sie die URL oder das Videoformat.');
+        this.toastr.error('Fehler beim Abspielen des Videos. Bitte überprüfen Sie die URL oder das Videoformat.', 'Fehler');
       });
       this.isPlaying = true;
     } else {
@@ -91,15 +129,31 @@ export class VideoPlayerComponent implements OnInit {
 
   seekVideo(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const video = this.videoPlayerRef.nativeElement;
+    const video = this.videoPlayerRef?.nativeElement;
+    if (!video) return;
+    
     const seekTime = Number(input.value);
     video.currentTime = seekTime;
+    this.currentTime = seekTime;
+    
+    // Aktualisiere die CSS-Variable für den Fortschrittsbalken
+    const progressPercent = (this.currentTime / this.duration) * 100;
+    input.style.setProperty('--progress-percent', `${progressPercent}%`);
   }
 
   onTimeUpdate(): void {
-    const video = this.videoPlayerRef.nativeElement;
+    const video = this.videoPlayerRef?.nativeElement;
+    if (!video) return;
+    
     this.currentTime = video.currentTime;
     this.duration = video.duration;
+    
+    // Aktualisiere die CSS-Variable für den Fortschrittsbalken
+    const progressPercent = (this.currentTime / this.duration) * 100;
+    const progressBar = document.querySelector('.progress-bar') as HTMLInputElement;
+    if (progressBar) {
+      progressBar.style.setProperty('--progress-percent', `${progressPercent}%`);
+    }
   }
 
   formatTime(time: number): string {
@@ -122,6 +176,7 @@ export class VideoPlayerComponent implements OnInit {
 
   onVideoError(event: Event): void {
     console.error('Video-Ladefehler', event);
+    this.toastr.error('Fehler beim Laden des Videos. Bitte überprüfen Sie Ihre Internetverbindung.', 'Fehler');
   }
 
   skipBackward(): void {
@@ -143,7 +198,42 @@ export class VideoPlayerComponent implements OnInit {
   toggleMenu(): void {
     // Hier kann später Funktionalität für das Menü hinzugefügt werden
     console.log('Menü wurde geklickt');
-    alert('Menü-Funktionalität wird in einer zukünftigen Version implementiert');
+    this.toastr.info('Menü-Funktionalität wird in einer zukünftigen Version implementiert', 'Info');
+  }
+
+  toggleQualityMenu(): void {
+    this.showQualityMenu = !this.showQualityMenu;
+  }
+
+  changeQuality(quality: VideoQuality): void {
+    if (!quality || !quality.url) return;
+    
+    const video = this.videoPlayerRef?.nativeElement;
+    if (!video) return;
+    
+    // Aktuelle Zeit speichern
+    const currentTime = video.currentTime;
+    const wasPlaying = !video.paused;
+    
+    // Neue Qualität setzen
+    this.currentQuality = quality;
+    this.videoUrl = quality.url;
+    
+    // Video neu laden
+    video.load();
+    
+    // Zur gespeicherten Zeit springen und ggf. wieder abspielen
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = currentTime;
+      if (wasPlaying) {
+        video.play().catch(err => {
+          console.error('Fehler beim Abspielen des Videos nach Qualitätsänderung:', err);
+        });
+      }
+    }, { once: true });
+    
+    this.toastr.success(`Videoqualität auf ${quality.label} geändert`, 'Qualität geändert');
+    this.showQualityMenu = false;
   }
 
   goBack(): void {

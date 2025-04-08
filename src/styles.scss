@@ -50,3 +50,30 @@ app-footer{
     justify-content: center;
     align-items: center;
   }
+
+/* Scrollbalken-Styling für die gesamte Anwendung */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #141414;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a2a;
+}
+
+/* Firefox Scrollbalken */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #141414 rgba(0, 0, 0, 0.1);
+}

@@ -110,6 +110,7 @@ app-header {
   outline: none;
   border-radius: 0;
   cursor: pointer;
+  background: linear-gradient(to right, white var(--progress-percent, 0%), rgba(255, 255, 255, 0.3) var(--progress-percent, 0%));
 }
 
 .progress-bar::-webkit-slider-thumb {
@@ -121,9 +122,11 @@ app-header {
   background: #fff;
   cursor: pointer;
   opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.progress-bar:hover::-webkit-slider-thumb {
+.video-wrapper:hover .progress-bar::-webkit-slider-thumb {
   opacity: 1;
 }
 
@@ -263,6 +266,47 @@ app-header {
   font-size: 24px;
   height: 24px;
   width: 24px;
+}
+
+/* Qualitätsauswahl-Menü */
+.quality-control-wrapper {
+  position: relative;
+}
+
+.quality-menu {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  background-color: rgba(28, 28, 28, 0.9);
+  border-radius: 4px;
+  min-width: 150px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  overflow: hidden;
+}
+
+.quality-menu-header {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #aaa;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quality-option {
+  padding: 10px 15px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.quality-option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quality-option.active {
+  color: $primary-color;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {

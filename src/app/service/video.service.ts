@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../interfaces/video.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
-  // Passe die Basis-URL entsprechend Deiner Backend-Konfiguration an
-  private apiBaseUrl = 'http://localhost:8000'; 
+  public apiBaseUrl = environment.API_BASE_URL;
 
   constructor(private http: HttpClient) {}
 

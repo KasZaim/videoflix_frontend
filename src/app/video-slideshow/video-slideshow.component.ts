@@ -62,7 +62,7 @@ export class VideoSlideshowComponent implements OnInit {
         this.dramaVideos.push(video);
       }
       
-      if (this.newVideos.length < 6) {
+      if (this.newVideos.length < 2) {
         this.newVideos.push(video);
       }
     });

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoSlideshowComponent } from "../video-slideshow/video-slideshow.component";
 import { FooterComponent } from "../footer/footer.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentVideoIndex: number = 0;
   private videoEndSubscription: any;
 
-  constructor(private videoService: VideoService) {}
+  constructor(
+    private videoService: VideoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.videoService.getVideos().subscribe((data) => {
@@ -83,5 +87,53 @@ export class DashboardComponent implements OnInit, OnDestroy {
     videoElement.play().catch(error => {
       console.error('Error playing video:', error);
     });
+  }
+
+  playVideo(): void {
+    if (!this.currentVideo) {
+      console.error('Kein Video zum Abspielen verfügbar');
+      return;
+    }
+    
+    const videoUrl = this.getVideoUrl(this.currentVideo);
+    
+    if (!videoUrl) {
+      console.error('Kein Video-URL für dieses Video gefunden:', this.currentVideo);
+      alert('Dieses Video kann nicht abgespielt werden, da keine URL gefunden wurde.');
+      return;
+    }
+    
+    console.log('Navigiere zu Video URL:', videoUrl);
+    
+    // Videoqualitäten für den Player vorbereiten
+    const videoQualities = {
+      video_1080p: this.currentVideo.video_1080p,
+      video_720p: this.currentVideo.video_720p,
+      video_480p: this.currentVideo.video_480p,
+      video_path: this.currentVideo.video_path
+    };
+    
+    this.router.navigate(['/video-player'], { 
+      queryParams: { 
+        url: videoUrl,
+        title: this.currentVideo.title,
+        qualities: JSON.stringify(videoQualities)
+      }
+    });
+  }
+
+  private getVideoUrl(video: Video): string {
+    const urlProperties = ['video_path', 'video_1080p', 'video_720p', 'video_480p', 'url'];
+    
+    for (const prop of urlProperties) {
+      const value = video[prop as keyof Video];
+      if (value) {
+        return typeof value === 'string' && value.startsWith('http') 
+          ? value 
+          : `${this.videoService.apiBaseUrl}${value}`;
+      }
+    }
+    
+    return '';
   }
 }
