@@ -1,102 +1,69 @@
-# Videoflix - Video Streaming Platform
+# VideoFlix
 
-Videoflix ist eine moderne Video-Streaming-Plattform, die mit Angular entwickelt wurde. Die Anwendung bietet eine benutzerfreundliche Oberfläche zum Ansehen von Videos mit verschiedenen Qualitätsstufen und einer responsiven Benutzeroberfläche.
+VideoFlix is a video streaming platform that allows users to watch videos in different qualities. The platform is built using Angular and provides a modern, responsive user interface.
 
 ## Features
 
-- 🎥 Video-Streaming mit verschiedenen Qualitätsstufen (1080p, 720p, 480p)
-- 🔐 Benutzerauthentifizierung mit Login/Logout-Funktionalität
-- 📱 Responsive Design für optimale Nutzung auf allen Geräten
-- 🎨 Moderne UI mit Material Design
-- 🔒 Geschützte Routen mit Auth Guard
-- 📝 Benutzerfreundliche Fehlermeldungen und Benachrichtigungen
+- User authentication (login/logout)
+- Video streaming in multiple qualities (1080p, 720p, 480p)
+- Responsive design
+- Modern UI with Material Design components
+- Toast notifications for user feedback
 
-## Technologien
+## Technologies Used
 
-- Angular 17
+- Angular
 - TypeScript
+- SCSS
 - Angular Material
-- RxJS
-- ngx-toastr für Benachrichtigungen
-- SCSS für Styling
+- ngx-toastr
 
-## Installation
+## Getting Started
 
-1. Stelle sicher, dass Node.js und npm installiert sind
-2. Klone das Repository:
+### Prerequisites
+
+- Node.js
+- npm (Node Package Manager)
+
+### Installation
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/KasZaim/videoflix_frontend.git
+   git clone https://github.com/yourusername/videoflix.git
    ```
-3. Navigiere in das Projektverzeichnis:
+
+2. Navigate to the project directory:
    ```bash
    cd videoflix
    ```
-4. Installiere die Abhängigkeiten:
+
+3. Install dependencies:
    ```bash
    npm install
    ```
-5. Starte die Entwicklungsumgebung:
+
+4. Start the development server:
    ```bash
    ng serve
    ```
-6. Öffne deinen Browser und navigiere zu `http://localhost:4200`
 
-## Projektstruktur
+5. Open your browser and navigate to `http://localhost:4200`
 
-```
-src/
-├── app/
-│   ├── components/
-│   │   ├── dashboard/
-│   │   ├── header/
-│   │   ├── footer/
-│   │   ├── video-player/
-│   │   └── video-slideshow/
-│   ├── services/
-│   │   └── video.service.ts
-│   ├── interfaces/
-│   │   └── video.interface.ts
-│   ├── guards/
-│   │   └── auth.guard.ts
-│   └── environments/
-├── assets/
-│   └── img/
-└── styles/
-```
+## Project Structure
 
-## API-Integration
+- `src/app/components/` - Contains all Angular components
+- `src/app/services/` - Contains services for API communication
+- `src/assets/` - Contains static assets like images
+- `src/styles/` - Contains global styles and variables
 
-Die Anwendung kommuniziert mit einem Backend-Server über HTTP-Anfragen. Die API-Basis-URL wird in der Umgebungskonfiguration definiert.
+## Contributing
 
-### Endpunkte
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- `/api/login/` - Benutzerauthentifizierung
-- `/api/videos/` - Video-Liste abrufen
-- Weitere API-Endpunkte für Video-Streaming
+## License
 
-## Umgebungsvariablen
-
-Erstelle eine `.env`-Datei im Root-Verzeichnis mit folgenden Variablen:
-
-```env
-API_BASE_URL=deine_api_url
-```
-
-## Entwicklung
-
-## Deployment
-
-1. Build der Anwendung:
-   ```bash
-   ng build --prod
-   ```
-2. Die generierten Dateien befinden sich im `dist/`-Verzeichnis
-3. Deploye den Inhalt des `dist/`-Verzeichnisses auf deinem Webserver
-
-## Lizenz
-
-Dieses Projekt ist unter der MIT-Lizenz lizenziert.
-
-## Autor
-
-Kaser Mahmood
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
