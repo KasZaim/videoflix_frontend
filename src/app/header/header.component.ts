@@ -20,6 +20,19 @@ export class HeaderComponent {
     private toastr: ToastrService
   ) {}
 
+  // Hilfsmethode zur besseren Bestimmung der aktuellen Seite
+  isHomePageOrLoginPage(): boolean {
+    return this.router.url === "/" || this.router.url === "/login" || this.router.url === "/signup";
+  }
+
+  isDashboardOrVideoPlayer(): boolean {
+    return this.router.url === "/dashboard" || this.router.url === "/video-player" || this.router.url.startsWith("/video-player");
+  }
+
+  isHomePageOrSignupPage(): boolean {
+    return this.router.url === "/" || this.router.url === "/signup";
+  }
+
   logout() {
     // Token aus dem Speicher entfernen
     localStorage.removeItem('token');

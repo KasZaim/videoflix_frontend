@@ -77,3 +77,11 @@ app-footer{
   scrollbar-width: thin;
   scrollbar-color: #141414 rgba(0, 0, 0, 0.1);
 }
+
+@media (max-width: 480px) {
+  app-header {
+    padding: 10px 30px;
+  }
+}
+
+

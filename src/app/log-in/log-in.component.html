@@ -8,6 +8,7 @@
 
         <mat-form-field >
             <mat-label>Enter your email</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
             <input
               matInput
               placeholder="pat@example.com"
@@ -21,6 +22,7 @@
           </mat-form-field>
           <mat-form-field style="margin-bottom: 0;">
             <mat-label>Enter your password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
             <input matInput [formControl]="password" [type]="hide() ? 'password' : 'text'" />
             <mat-error *ngIf="password.invalid && password.touched">
               {{ password.hasError('required') ? 'Password is required' : '' }}

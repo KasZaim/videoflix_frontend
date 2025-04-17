@@ -2,6 +2,7 @@
 
 body{
     font-family: dm-sans;
+    
 }
 
 .background{
@@ -15,11 +16,10 @@ body{
     flex-direction: column;
     padding: 43px 56px;
     align-items: center;
-    background-color: #fff;
     border-radius: 40px;
-
+    background: rgba(27, 27, 34, 0.85);
     >h1{
-        color: $primary-color;
+        color: #fff;
         font-size: 40px;
         margin: 0;
         letter-spacing: 2px;
@@ -36,24 +36,53 @@ mat-form-field{
     font-size: 13px;
     height: 70px;
     margin-bottom: 8px;
-
 }
 
 mat-input{
     font-size: 14px;
     height: 15px;
+    
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: #fff !important; 
+    background-color: rgba(27, 27, 34, 0.85) !important; 
     border: 1.5px solid $primary-color ;
     border-radius: 13px;
+    display: flex;
+    align-items: center;
 }
+
+::ng-deep .mat-mdc-form-field-icon-prefix {
+    color: $primary-color;
+    padding-right: 10px;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-mdc-input-element {
+    color: white !important;
+}
+
+// Hide the floating label animation
+::ng-deep .mdc-floating-label--float-above {
+    display: none !important;
+}
+
 mat-label{
- color: $primary-color;
- font-family: dm-sans;
- font-size: 14px;
- font-weight: 700px;
+ color: #fff;
+ font-family: 'dm-sans';
+ font-size: 18px;
 }
 
 .password-input{
@@ -62,10 +91,12 @@ mat-label{
     font-family: dm-sans;
     gap: 4px;
     margin-bottom: 35px;
+    color: #fff;
     >input{
         height: 13px;
         width: 13px;
         border: 1px solid $primary-color;
+        background-color: rgba(27, 27, 34, 0.85) !important;
     }
 }
 
@@ -87,11 +118,12 @@ mat-label{
         font-weight: 700;
         font-family: dm-sans;
         white-space: nowrap;
+        color: #fff;
         
     }
     >a{
-        color: $primary-color;
-        font-weight: 600;
+        color: #fff;
+        font-weight: 400;
         cursor: pointer;
         font-size: 16px;
     }
@@ -104,13 +136,101 @@ mat-label{
 
         >span{
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 400;   
+            color: #fff;
         }
 
         >a{
-            color: $primary-color;
+            color: #fff;
             font-weight: 600;
             cursor: pointer;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .login-content {
+        height: auto;
+        padding: 30px 40px;
+        
+        > h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+    }
+
+    mat-label{
+        font-size: 16px;
+        
+    }
+    
+    mat-form-field {
+        height: 65px;
+    }
+    
+    .login-lower-content {
+        gap: 15px;
+        
+        button {
+            height: 42px;
+            font-size: 14px;
+        }
+        
+        > a, > div > span, > div > a {
+            font-size: 14px;
+        }
+        
+        > div {
+            gap: 16px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .login-content {
+        width: 280px;
+        padding: 25px 30px;
+        
+        > h1 {
+            font-size: 36px;
+            margin-bottom: 34px;
+        }
+    }
+    
+    mat-form-field {
+        height: 70px;
+        font-size: 12px;
+    }
+    
+    mat-label {
+        font-size: 14px;
+    }
+
+    label{
+        font-size: 14px;
+    }
+
+    .password-input{
+        margin-bottom: 20px;
+    }
+    
+    .login-lower-content {
+        gap: 12px;
+        
+        button {
+            width: 90px;
+            height: 38px;
+            font-size: 13px;
+        }
+        
+        > a, > div > span, > div > a {
+            font-size: 13px;
+        }
+        
+        > div {
+            gap: 10px;
+            flex-direction: column;
+            align-items: center;
         }
     }
 }

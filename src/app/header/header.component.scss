@@ -1,5 +1,3 @@
-
-
 button{
     background-color: #2E3EDF !important;
     height: 48px;
@@ -11,3 +9,28 @@ button{
     white-space: nowrap;
     color: whitesmoke !important;
 }
+
+// Bilder-Styling für responsive Logos
+.logo {
+  content: url('../../assets/img/Logo.png');
+}
+
+// Bei Bildschirmen unter 768px wird das kleine Logo verwendet
+@media (max-width: 768px) {
+  .logo {
+    content: url('../../assets/img/vf_only_icon.png');
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    width: 80px;
+    font-size: 14px;
+  }
+
+  .logo {
+    width: 50px;
+  }
+}
+
+

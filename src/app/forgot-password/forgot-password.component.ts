@@ -41,6 +41,10 @@ export class ForgotPasswordComponent {
 
   }
 
+  goBack() {
+    this.router.navigate(['/login']);
+  }
+
   onSubmit() {
     if (this.email.invalid) {
       this.updateErrorMessage();

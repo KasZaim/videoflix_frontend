@@ -41,6 +41,7 @@ html {
     border-radius: 40px;
     height: 41px;
     gap: 4px;
+    color: #fff;
   }
 
   >input {
@@ -68,9 +69,60 @@ app-log-in {
   width: 200px;
 }
 
+.error-message-container {
+  width: 80%;
+  text-align: left;
+}
+
 .error-message {
   color: red;
   font-size: 12px !important; 
-  text-align: left;
-  margin-top: 6px;
+
+}
+
+@media (max-width: 768px) { 
+  .start-content {
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+  .signup-field {
+    input {
+      width: 200px;
+    }
+    button {
+      width: 130px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .start-content {
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+  .signup-field {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    
+    input {
+      width: 90%;
+      max-width: 280px;
+    }
+    button {
+      width: 90%;
+      margin-top: 10px;
+      max-width: 280px;
+    }
+  }
 }
