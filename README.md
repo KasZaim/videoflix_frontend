@@ -44,7 +44,7 @@ VideoFlix is a video streaming platform that allows users to watch videos in dif
 
 4. Start the development server:
    ```bash
-   ng serve
+   ng serve --open
    ```
 
 5. Open your browser and navigate to `http://localhost:4200`

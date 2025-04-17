@@ -20,32 +20,44 @@ export class EmailVerificationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router, 
     private http: HttpClient,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
-    // Token aus der URL extrahieren
+    // Token und uid aus den Query-Parametern extrahieren
     this.route.queryParams.subscribe(params => {
+      const uid = params['uid'];
       const token = params['token'];
-      if (token) {
-        this.verifyEmail(token);
+      
+      if (uid && token) {
+        console.log("Parameter gefunden:", uid, token); // Debugging
+        this.verifyEmail(uid, token);
       } else {
         this.loading = false;
         this.success = false;
-        this.toastr.error('Kein Verifizierungstoken gefunden', 'Fehler');
+        this.toastr.error('Verifizierungsdaten unvollständig', 'Fehler');
       }
     });
   }
+  
 
-  verifyEmail(token: string): void {
-    this.http.post(`${this.apiBaseUrl}/api/verify-email/`, { token })
+  verifyEmail(uid: string, token: string): void {
+    // GET-Anfrage an deine bestehende Django-URL
+    this.http.get(`${this.apiBaseUrl}/api/confirm-email/${uid}/${token}/`)
       .subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.loading = false;
           this.success = true;
           this.toastr.success('Ihre E-Mail wurde erfolgreich bestätigt', 'Erfolg');
+          
+          // Weiterleitung, wenn eine Redirect-URL zurückgegeben wird
+          if (response.redirect_url) {
+            setTimeout(() => {
+              this.router.navigateByUrl(response.redirect_url);
+            }, 2000);
+          }
         },
         error: (error) => {
           this.loading = false;
