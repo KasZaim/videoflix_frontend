@@ -1,6 +1,6 @@
 <div class="slideshow-container">
   <!-- New on Videoflix Section -->
-  <section class="category-section">
+  <section class="category-section" *ngIf="newVideos && newVideos.length > 0">
     <h2 class="category-title">New on Videoflix</h2>
     <div class="video-carousel">
       <div class="video-card" *ngFor="let video of newVideos" (click)="playVideo(video)">
@@ -15,7 +15,7 @@
   </section>
 
   <!-- Documentary Section -->
-  <section class="category-section">
+  <section class="category-section" *ngIf="documentaryVideos && documentaryVideos.length > 0">
     <h2 class="category-title">Documentary</h2>
     <div class="video-carousel">
       <div class="video-card" *ngFor="let video of documentaryVideos" (click)="playVideo(video)">
@@ -30,7 +30,7 @@
   </section>
 
   <!-- Drama Section -->
-  <section class="category-section">
+  <section class="category-section" *ngIf="dramaVideos && dramaVideos.length > 0">
     <h2 class="category-title">Drama</h2>
     <div class="video-carousel">
       <div class="video-card" *ngFor="let video of dramaVideos" (click)="playVideo(video)">

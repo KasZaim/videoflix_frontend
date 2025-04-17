@@ -310,15 +310,97 @@ app-header {
 }
 
 @media (max-width: 768px) {
+  .video-container {
+    padding: 10px;
+  }
+  
   .controls-row {
     flex-wrap: wrap;
   }
   
-  .volume-control {
-    width: 80px;
+  .volume-control-wrapper:hover .volume-slider-container {
+    width: 60px;
   }
   
   .time-display {
     font-size: 12px;
+    margin: 0 5px;
+  }
+  
+  .control-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .control-button mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+  
+  .back-button {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .video-title {
+    font-size: 16px;
+  }
+  
+  /* Landscape orientation message */
+  .video-wrapper::before {
+    content: "Tap to play in landscape mode";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .video-wrapper:hover::before {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-container {
+    padding: 5px;
+  }
+  
+  .left-controls, .right-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .right-controls {
+    margin-top: 5px;
+  }
+  
+  .controls-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .control-button {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .control-button mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+  
+  .video-title {
+    font-size: 14px;
   }
 }

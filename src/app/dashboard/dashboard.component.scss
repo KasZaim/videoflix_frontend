@@ -106,5 +106,85 @@
 app-footer {
   position: unset;
   background: linear-gradient(to top, #141414, rgba(0, 0, 0, 0.9) 50%, #141414);
-  justify-content: end;
+  justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .dashboard-content header {
+    margin-left: 50px;
+    max-width: 450px;
+    
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboard-content header {
+    margin-top: 120px;
+    max-width: 400px;
+    
+    h1 {
+      font-size: 3rem;
+      white-space: normal;
+    }
+    
+    .description {
+      font-size: 15px;
+      max-width: 350px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content header {
+    margin-left: 30px;
+    margin-top: 300px;
+    max-width: 350px;
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    .description {
+      font-size: 14px;
+      margin: 20px 0;
+      max-width: 300px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-content header {
+    margin-left: 20px;
+    max-width: 280px;
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .description {
+      font-size: 13px;
+      margin: 15px 0;
+      max-width: 250px;
+    }
+  }
+  
+  .play-button {
+    font-size: 13px;
+    padding: 6px 12px;
+    
+    mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      line-height: 18px;
+    }
+  }
+
+  app-footer{
+    display: none;
+  }
 }

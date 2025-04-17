@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
@@ -37,12 +37,22 @@ export class VideoPlayerComponent implements OnInit {
   currentQuality: VideoQuality | null = null;
   showQualityMenu: boolean = false;
   
+  private isMobile: boolean = false;
+  
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
     private location: Location,
     private toastr: ToastrService
-  ) {}
+  ) {
+    // Check if screen width is less than 768px
+    this.isMobile = window.innerWidth < 768;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -97,6 +107,11 @@ export class VideoPlayerComponent implements OnInit {
         this.toastr.error('Fehler beim Abspielen des Videos. Bitte überprüfen Sie die URL oder das Videoformat.', 'Fehler');
       });
       this.isPlaying = true;
+      
+      // Automatically switch to fullscreen in landscape mode on mobile
+      if (this.isMobile) {
+        this.requestFullscreenLandscape();
+      }
     } else {
       video.pause();
       this.isPlaying = false;
@@ -238,5 +253,30 @@ export class VideoPlayerComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  requestFullscreenLandscape(): void {
+    const video = this.videoPlayerRef?.nativeElement;
+    if (!video) return;
+    
+    if (!document.fullscreenElement) {
+      // Request fullscreen first
+      video.requestFullscreen().then(() => {
+        // Then try to switch to landscape orientation if possible
+        try {
+          // Verwende any, da TypeScript die experimentelle Screen Orientation API möglicherweise nicht vollständig kennt
+          const screenOrientation = screen.orientation as any;
+          if (screenOrientation && typeof screenOrientation.lock === 'function') {
+            screenOrientation.lock('landscape').catch((err: Error) => {
+              console.warn('Landscape orientation lock failed:', err);
+            });
+          }
+        } catch (err) {
+          console.warn('Screen Orientation API nicht unterstützt:', err);
+        }
+      }).catch(err => {
+        console.error(`Fehler beim Umschalten in den Vollbildmodus: ${err.message}`);
+      });
+    }
   }
 }
