@@ -103,7 +103,7 @@ export class SignUpComponent {
   
   async registerUser(formData: { email: string; password: string; repeated_password: string }) {
     try {
-      const response = await fetch(this.apiBaseUrl +'/api/register/', {
+      const response = await fetch(this.apiBaseUrl +'api/register/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

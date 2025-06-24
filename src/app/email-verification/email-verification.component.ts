@@ -45,7 +45,7 @@ export class EmailVerificationComponent implements OnInit {
 
   verifyEmail(uid: string, token: string): void {
     // GET-Anfrage an deine bestehende Django-URL
-    this.http.get(`${this.apiBaseUrl}/api/confirm-email/${uid}/${token}/`)
+    this.http.get(`${this.apiBaseUrl}api/confirm-email/${uid}/${token}/`)
       .subscribe({
         next: (response: any) => {
           this.loading = false;

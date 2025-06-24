@@ -75,7 +75,7 @@ export class ResetPasswordComponent implements OnInit {
     const { newPassword } = this.resetPasswordForm.value;
 
     this.http
-      .post<any>(`${this.apiBaseUrl}/api/reset-password/`, {
+      .post<any>(`${this.apiBaseUrl}api/reset-password/`, {
         uid: this.uid,
         token: this.token,
         new_password: newPassword,

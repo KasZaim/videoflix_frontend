@@ -51,7 +51,7 @@ export class ForgotPasswordComponent {
       return;
     }
   
-    this.http.post<any>(`${this.apiBaseUrl}/api/forgot-password/`, { email: this.email.value })
+    this.http.post<any>(`${this.apiBaseUrl}api/forgot-password/`, { email: this.email.value })
       .subscribe({
         next: () => {
           // Erfolgsmeldung im Toast anzeigen

@@ -89,7 +89,7 @@ export class LoginComponent {
   
     // Anfrage an das Backend senden
     this.http
-      .post<any>(this.apiBaseUrl +'/api/login/', loginData)
+      .post<any>(this.apiBaseUrl +'api/login/', loginData)
       .subscribe({
         next: (response) => {
           const successMessage =
