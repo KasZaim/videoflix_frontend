@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="video-background" *ngIf="currentVideo">
+  <video [src]="currentVideo.video_1080p" muted autoplay playsinline preload="auto" class="video-preview"
+    (error)="onVideoError($event)" (loadeddata)="onVideoLoaded($event)" (ended)="playNextVideo()">
+  </video>
+</div>
+
+<!-- Dashboard-Inhalt -->
+<div class="dashboard-content">
+  <header>
+    <h1>{{currentVideo?.title || 'Willkommen im Netflix Dashboard'}}</h1>
+    <p class="description">{{currentVideo?.description || 'Wählen Sie ein Video aus der Liste aus.'}}</p>
+    
+    <button mat-raised-button (click)="playVideo()" color="primary" class="play-button">
+      <mat-icon>play_arrow</mat-icon>
+      <span>Play</span>
+    </button>
+  </header>
+</div>
+
+<app-video-slideshow></app-video-slideshow>
+
+<app-footer></app-footer>

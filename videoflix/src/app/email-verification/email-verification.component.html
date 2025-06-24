@@ -1,0 +1,12 @@
+<div class="verification-container">
+    <div class="verification-content">
+        <h2 *ngIf="loading" class="loading-text">Überprüfung läuft...</h2>
+        <div *ngIf="!loading" class="result-container">
+            <h2 *ngIf="success" class="success-text">E-Mail erfolgreich bestätigt!</h2>
+            <h2 *ngIf="!success" class="error-text">Der Link ist ungültig oder abgelaufen.</h2>
+            <button mat-flat-button color="primary" *ngIf="success" (click)="redirectToLogin()" class="login-button">
+                Zum Login
+            </button>
+        </div>
+    </div>
+</div>

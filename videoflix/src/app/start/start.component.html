@@ -1,0 +1,27 @@
+<app-header></app-header>
+<section class="background"
+    style="background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url('../../assets/img/Diashow.jpeg');">
+
+    <div class="start-content">
+        <h1>Movies,TV shows, and more </h1>
+        <p>Enter your email to create or restart your subscription.</p>
+        <div>
+            <div class="signup-field">
+                <input type="email" [(ngModel)]="email" #emailInput id="emailInput" placeholder="Email Adress"
+                    (input)="validateEmail(email)">
+                <button mat-flat-button (click)="sendValueAndNavigate(emailInput.value)" color="primary"
+                    [disabled]="!isValidEmail">Sign Up ></button>
+            </div>
+
+
+        </div>
+        <div class="error-message-container">
+            <p class="error-message" *ngIf="email && !isValidEmail">
+                Bitte eine gültige E-Mail-Adresse eingeben.
+            </p>
+        </div>
+
+    </div>
+
+    <app-footer></app-footer>
+</section>

@@ -1,0 +1,87 @@
+@import './toastr.css';
+
+/* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: 'dm-sans'; /* Name der Schriftart */
+    src: url('./assets/fonts/DMSans-VariableFont_opsz\,wght.ttf') format('truetype'); /* Pfad zur TTF-Datei */
+    font-weight: normal;
+    font-style: normal;
+  }
+  app-header{
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 96px;
+}
+
+app-footer{
+    position: absolute;
+    z-index: 99;
+    bottom: 10px;
+    // right: 50%;
+    // width: 150px;
+    display: flex;
+    padding: 10px;
+    gap: 48px;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.background {
+    background-size: cover !important; 
+    background-position: center !important;
+    height: 100vh; 
+    width: 100%; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+/* Scrollbalken-Styling für die gesamte Anwendung */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #141414;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a2a;
+}
+
+/* Firefox Scrollbalken */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #141414 rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 480px) {
+  app-header {
+    padding: 10px 30px;
+  }
+}
+
+
