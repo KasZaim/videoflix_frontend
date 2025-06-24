@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { merge } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { SharedService } from '../shared.service';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-sign-up',
@@ -33,7 +34,7 @@ export class SignUpComponent {
   emailFromStartPage: string = '';
   readonly email = new FormControl('', [Validators.required, Validators.email]);//email input
   errorMessage = signal('');
-
+  private apiBaseUrl = environment.API_BASE_URL;
   signUpForm: FormGroup;
   
 
@@ -102,7 +103,7 @@ export class SignUpComponent {
   
   async registerUser(formData: { email: string; password: string; repeated_password: string }) {
     try {
-      const response = await fetch("http://localhost:8000/api/register/", {
+      const response = await fetch(this.apiBaseUrl +'/api/register/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
