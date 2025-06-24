@@ -1,0 +1,61 @@
+<app-header></app-header>
+<section
+  class="background"
+  style="background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0.7) 90%), url('../../assets/img/popcorn_2.jpeg');">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="login-content">
+      <h1>Log in</h1>
+
+        <mat-form-field >
+            <mat-label>Enter your email</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input
+              matInput
+              placeholder="pat@example.com"
+              [formControl]="email"
+              (blur)="updateErrorMessage()"
+              required
+            />
+            @if (email.invalid) {
+              <mat-error>{{errorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field style="margin-bottom: 0;">
+            <mat-label>Enter your password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput [formControl]="password" [type]="hide() ? 'password' : 'text'" />
+            <mat-error *ngIf="password.invalid && password.touched">
+              {{ password.hasError('required') ? 'Password is required' : '' }}
+              {{ password.hasError('minlength') ? 'Password must be at least 6 characters' : '' }}
+            </mat-error>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <div class="password-input">
+            <input id="rememberMe" formControlName="rememberMe"   type="checkbox" />
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          
+          <div class="login-lower-content">
+            <button [disabled]="email.invalid || password.invalid" mat-flat-button color="primary">
+              Log in
+            </button>
+            <a (click)="this.router.navigate(['/forgot-password']) ">Forgot Password</a>
+            <div>
+              <span> New to videoflix?</span>
+              <a (click)="this.router.navigate(['/signup']) ">Sign Up now</a>
+            </div>
+          </div>
+    </div>
+    
+</form>
+<app-footer></app-footer>
+</section>

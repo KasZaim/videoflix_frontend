@@ -1,0 +1,21 @@
+.footer-content {
+        display: flex;
+
+        >button {
+                border: none;
+                color: white !important;
+                font-family: dm-sans;
+                border-radius: 40px;
+        }
+}
+
+
+@media (max-width: 767px) {
+        .footer-content {
+                margin-bottom: 30px;
+                
+                button{
+                        font-size: 16px;
+                }
+        }
+}
