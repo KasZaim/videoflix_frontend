@@ -16,6 +16,8 @@ export class VideoSlideshowComponent implements OnInit {
   newVideos: Video[] = [];
   documentaryVideos: Video[] = [];
   dramaVideos: Video[] = [];
+  fantasyVideos: Video[] = [];
+  actionVideos: Video[] = [];
   private apiBaseUrl = 'http://localhost:8000';
 
   constructor(private videoService: VideoService, private router: Router) { }
@@ -60,6 +62,10 @@ export class VideoSlideshowComponent implements OnInit {
         this.documentaryVideos.push(video);
       } else if (video.category.toLowerCase().includes('drama')) {
         this.dramaVideos.push(video);
+      } else if (video.category.toLowerCase().includes('fantasy')) {
+        this.fantasyVideos.push(video);
+      } else if (video.category.toLowerCase().includes('action')) {
+        this.actionVideos.push(video);
       }
       
       if (this.newVideos.length < 2) {
