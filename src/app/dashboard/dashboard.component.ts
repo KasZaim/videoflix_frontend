@@ -38,24 +38,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.videoService.getVideos().subscribe((data) => {
       this.videos = data;
-      if (this.videos.length > 0) {
-        this.setupVideoEndListener();
-      }
     });
   }
 
   ngOnDestroy(): void {
     if (this.videoEndSubscription) {
       this.videoEndSubscription.unsubscribe();
-    }
-  }
-
-  private setupVideoEndListener(): void {
-    const videoElement = document.querySelector('.video-preview') as HTMLVideoElement;
-    if (videoElement) {
-      videoElement.addEventListener('ended', () => {
-        this.playNextVideo();
-      });
     }
   }
 
@@ -84,6 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onVideoLoaded(event: any): void {
     console.log('Video loaded successfully:', event);
     const videoElement = event.target as HTMLVideoElement;
+    videoElement.muted = true;
     videoElement.play().catch(error => {
       console.error('Error playing video:', error);
     });
