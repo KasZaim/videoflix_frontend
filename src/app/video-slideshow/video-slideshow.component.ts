@@ -102,10 +102,19 @@ export class VideoSlideshowComponent implements OnInit {
     
     console.log('Navigiere zu Video URL:', videoUrl);
     
+    // Videoqualitäten für den Player vorbereiten
+    const videoQualities = {
+      video_1080p: video.video_1080p,
+      video_720p: video.video_720p,
+      video_480p: video.video_480p,
+      video_path: video.video_path
+    };
+    
     this.router.navigate(['/video-player'], { 
       queryParams: { 
         url: videoUrl,
-        title: video.title
+        title: video.title,
+        qualities: JSON.stringify(videoQualities)
       }
     });
   }
