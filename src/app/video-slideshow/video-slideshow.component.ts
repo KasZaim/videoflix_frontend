@@ -19,7 +19,7 @@ export class VideoSlideshowComponent implements OnInit {
   fantasyVideos: Video[] = [];
   actionVideos: Video[] = [];
   horrorVideos: Video[] = [];
-  comedyVideos: Video[] = [];
+  comedyVideos: Video[] = []; 
   private apiBaseUrl = 'http://localhost:8000';
 
   constructor(private videoService: VideoService, private router: Router) { }
@@ -68,6 +68,10 @@ export class VideoSlideshowComponent implements OnInit {
         this.fantasyVideos.push(video);
       } else if (video.category.toLowerCase().includes('action')) {
         this.actionVideos.push(video);
+      } else if (video.category.toLowerCase().includes('horror')) {
+        this.horrorVideos.push(video);
+      } else if (video.category.toLowerCase().includes('comedy')) {
+        this.comedyVideos.push(video);
       }
       
       if (this.newVideos.length < 2) {
