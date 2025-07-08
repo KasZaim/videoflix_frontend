@@ -18,6 +18,7 @@ export class VideoSlideshowComponent implements OnInit {
   dramaVideos: Video[] = [];
   fantasyVideos: Video[] = [];
   actionVideos: Video[] = [];
+  horrorVideos: Video[] = [];
   private apiBaseUrl = 'http://localhost:8000';
 
   constructor(private videoService: VideoService, private router: Router) { }
@@ -109,7 +110,6 @@ export class VideoSlideshowComponent implements OnInit {
       video_480p: video.video_480p,
       video_path: video.video_path
     };
-    
     this.router.navigate(['/video-player'], { 
       queryParams: { 
         url: videoUrl,

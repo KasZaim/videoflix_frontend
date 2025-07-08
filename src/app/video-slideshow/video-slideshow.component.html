@@ -43,6 +43,51 @@
       </div>
     </div>
   </section>
+
+  <!-- Fantasy Section -->
+  <section class="category-section" *ngIf="fantasyVideos && fantasyVideos.length > 0">
+    <h2 class="category-title">Fantasy</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of fantasyVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Section -->
+  <section class="category-section" *ngIf="actionVideos && actionVideos.length > 0">
+    <h2 class="category-title">Action</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of actionVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container"> 
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Horror Section -->
+  <section class="category-section" *ngIf="horrorVideos && horrorVideos.length > 0">
+    <h2 class="category-title">Horror</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of horrorVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 
