@@ -73,12 +73,26 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Horror Section -->
   <section class="category-section" *ngIf="horrorVideos && horrorVideos.length > 0">
     <h2 class="category-title">Horror</h2>
     <div class="video-carousel">
       <div class="video-card" *ngFor="let video of horrorVideos" (click)="playVideo(video)">
+        <div class="thumbnail-container">
+          <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
+          <div class="overlay">
+            <h3>{{ video.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Comedy Section -->
+  <section class="category-section" *ngIf="comedyVideos && comedyVideos.length > 0">
+    <h2 class="category-title">Comedy</h2>
+    <div class="video-carousel">
+      <div class="video-card" *ngFor="let video of comedyVideos" (click)="playVideo(video)">
         <div class="thumbnail-container">
           <img [src]="video.thumbnail" [alt]="video.title" class="video-thumbnail">
           <div class="overlay">

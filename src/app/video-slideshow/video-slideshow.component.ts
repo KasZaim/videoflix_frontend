@@ -19,6 +19,7 @@ export class VideoSlideshowComponent implements OnInit {
   fantasyVideos: Video[] = [];
   actionVideos: Video[] = [];
   horrorVideos: Video[] = [];
+  comedyVideos: Video[] = [];
   private apiBaseUrl = 'http://localhost:8000';
 
   constructor(private videoService: VideoService, private router: Router) { }
