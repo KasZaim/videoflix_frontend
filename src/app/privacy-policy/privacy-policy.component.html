@@ -1,6 +1,6 @@
 <app-header></app-header>
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
+    <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="sidenavOpened" class="example-sidenav" (backdropClick)="isMobile && toggleSidenav()">
     <button class="goBack" mat-icon-button (click)="this.location.back()">
         <img src="../../assets/icons/arrow_back.svg" alt="Go back"/>
     </button>
@@ -14,7 +14,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        
+        <button *ngIf="isMobile" mat-icon-button class="hamburger-menu" (click)="toggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
 
       
       

@@ -77,6 +77,19 @@ h2 {
 }
 
 
+.hamburger-menu {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #2e3edf;
+    color: white;
+}
+
+.hamburger-menu mat-icon {
+    color: white;
+}
+
 // Media Queries
 
 @media (max-width: 768px) {
@@ -108,5 +121,14 @@ h2 {
 
     h2 {
         font-size: 1.4rem;
+    }
+
+    main {
+        padding: 20px;
+        padding-top: 60px; /* Make space for hamburger menu */
+    }
+
+    .example-sidenav {
+        width: 280px; /* Slightly narrower on mobile */
     }
 }
